@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:BK_score.ViewModels"
+			 xmlns:models="clr-namespace:BK_score.Models"
+			 xmlns:converters="clr-namespace:BK_score.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BK_score.Views.MainView"
+             x:DataType="vm:MainViewModel"
+			 x:CompileBindings="True">
+
+	<UserControl.Resources>
+		<converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+	</UserControl.Resources>
+
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
+		<StackPanel Spacing="10" Margin="5">
+		<Border Margin="5"
+					CornerRadius="10"
+					Background="LightBlue"
+					Height="50"
+					VerticalAlignment="Top">
+			<TextBlock Margin="5"
+						FontSize="30"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Text="BK Score Demo">
+			</TextBlock>
+		</Border>
+		<StackPanel Orientation="Horizontal" Spacing="10" Margin="10" HorizontalAlignment="Center">
+			<ItemsControl ItemsSource="{Binding GridItems}"
+							Name="MyItemsControl"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="models:GridItem">
+						<Border Margin="1"
+						CornerRadius="5"
+						Background="WhiteSmoke"
+						Height="20"
+						Width="30">
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text}"></TextBlock>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="10"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+			<StackPanel Spacing="-5" VerticalAlignment="Center">
+				<Border Margin="5"
+						CornerRadius="10"
+						Background="{Binding ScoreColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+						Height="75"
+						Width="75"
+						HorizontalAlignment="Right">
+					<TextBlock Margin="5"
+								FontSize="30"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Text="{Binding ScoreText}">
+					</TextBlock>
+				</Border>
+				<Border Margin="5"
+					CornerRadius="10"
+					Background="LightCoral"
+					Height="20"
+					Width="75"
+					HorizontalAlignment="Right">
+					<TextBlock Margin="0"
+								FontSize="14"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Text="{Binding OverallMinus}">
+					</TextBlock>
+				</Border>
+			</StackPanel>
+		</StackPanel>
+	</StackPanel>
+</UserControl>
